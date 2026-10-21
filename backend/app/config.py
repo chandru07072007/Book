@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     MONGODB_URL: str = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
     DATABASE_NAME: str = os.getenv("DATABASE_NAME", "bookbridge_db")
 
+    # Supabase Configuration
+    SUPABASE_URL: str = os.getenv("SUPABASE_URL", "https://sdgszspdgrtbrsvqlzgh.supabase.co")
+    SUPABASE_KEY: str = os.getenv("SUPABASE_KEY", "sb_publishable_MbwSw_gZIXI-DkkjIOr0CQ_f_G-WGyX")
+
     class Config:
         case_sensitive = True
 
