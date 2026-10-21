@@ -1,0 +1,8 @@
+name = "bookbridge"
+compatibility_date = "2024-04-03"
+pages_build_output_dir = "dist"
+
+[vars]
+VITE_API_URL = "https://book-brown-one.vercel.app/"
+VITE_SUPABASE_ANON_KEY = "sb_publishable_MbwSw_gZIXI-DkkjIOr0CQ_f_G-WGyX"
+VITE_SUPABASE_URL = "https://sdgszspdgrtbrsvqlzgh.supabase.co"

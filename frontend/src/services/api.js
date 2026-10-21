@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 // Support custom API URL (e.g. when frontend is deployed on Cloudflare Pages and backend on Vercel)
-const baseURL = import.meta.env.VITE_API_URL || '/api';
+const rawUrl = (import.meta.env.VITE_API_URL || '/api').trim().replace(/\/+$/, '');
+const baseURL = (rawUrl.startsWith('http') && !rawUrl.endsWith('/api'))
+  ? `${rawUrl}/api`
+  : rawUrl;
 
 const api = axios.create({
   baseURL,
