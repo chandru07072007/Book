@@ -67,13 +67,13 @@ export default function RequestModal({ book, isOpen, onClose, onSuccess }) {
           <Field label="Pickup location">
             <input type="text" required value={meetupLocation} onChange={(e) => setMeetupLocation(e.target.value)}
               placeholder="Campus library, student union…"
-              className="input" />
+              className="w-full text-[13px] px-3.5 py-2.5 bg-white border border-zinc-200 rounded-xl outline-none focus:border-zinc-400 text-zinc-900 placeholder:text-zinc-400 transition" />
           </Field>
 
           <Field label="Note to provider (optional)">
             <textarea rows="3" value={purpose} onChange={(e) => setPurpose(e.target.value)}
               placeholder="What course is this for? Anything else the provider should know?"
-              className="input resize-none" />
+              className="w-full text-[13px] px-3.5 py-2.5 bg-white border border-zinc-200 rounded-xl outline-none focus:border-zinc-400 text-zinc-900 placeholder:text-zinc-400 resize-none transition" />
           </Field>
 
           <div className="flex items-center gap-2 pt-1">
