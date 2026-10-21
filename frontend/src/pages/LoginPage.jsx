@@ -123,14 +123,8 @@ export default function LoginPage() {
         {/* ─── RIGHT PANEL ──────────────────────────────── */}
         <div className="flex-1 flex flex-col items-end gap-6 px-6 pb-10 md:pb-0 w-full">
 
-          {/* Illustration placeholder (styled like the mockup's gray box) */}
-          <div className="w-full max-w-sm bg-zinc-200/80 rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&auto=format&fit=crop"
-              alt="Library books illustration"
-              className="w-full h-full object-cover opacity-80"
-            />
-          </div>
+          {/* Gray box matching wireframe mockup */}
+          <div className="w-full max-w-sm bg-[#d9d9d9] aspect-[4/3] rounded-sm" />
 
           {/* Log in button — bottom right, matching mockup */}
           <button
