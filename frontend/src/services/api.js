@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// Support custom API URL (e.g. when frontend is deployed on Cloudflare Pages and backend on Vercel)
+const baseURL = import.meta.env.VITE_API_URL || '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL,
 });
 
 api.interceptors.request.use((config) => {
@@ -15,13 +18,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      // Optional: auto-logout on expired token
-      // localStorage.removeItem('token');
-    }
     return Promise.reject(error);
   }
 );
 
 export default api;
-

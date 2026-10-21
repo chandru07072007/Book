@@ -1,0 +1,11 @@
+{
+  "name": "bookbridge-root",
+  "private": true,
+  "version": "1.0.0",
+  "description": "BookBridge Root Monorepo Orchestration",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "built": "cd frontend && npm install && npm run build",
+    "dev": "cd frontend && npm run dev"
+  }
+}
