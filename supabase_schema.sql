@@ -294,3 +294,4 @@ VALUES (
     'Alice was very prompt and kind when handing over the textbook.'
 )
 ON CONFLICT (id) DO NOTHING;
+
