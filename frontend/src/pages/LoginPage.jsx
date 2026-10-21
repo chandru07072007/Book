@@ -120,13 +120,9 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* ─── RIGHT PANEL ──────────────────────────────── */}
-        <div className="flex-1 flex flex-col items-end gap-6 px-6 pb-10 md:pb-0 w-full">
-
-          {/* Gray box matching wireframe mockup */}
-          <div className="w-full max-w-sm bg-[#d9d9d9] aspect-[4/3] rounded-sm" />
-
-          {/* Log in button — bottom right, matching mockup */}
+        {/* ─── RIGHT ACTION PANEL ───────────────────────── */}
+        <div className="flex-1 flex flex-col items-end justify-end px-6 pb-10 md:pb-6 w-full self-end">
+          {/* Log in button — matching mockup */}
           <button
             onClick={handleSubmit}
             disabled={loading}
