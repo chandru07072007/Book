@@ -7,6 +7,10 @@ class Settings(BaseSettings):
     SECRET_KEY: str = os.getenv("SECRET_KEY", "super-secret-bookbridge-jwt-key-2026-very-secure")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
+    CORS_ORIGINS: str = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173,http://localhost:5174",
+    )
     
     # MongoDB Connection URI (defaults to local MongoDB)
     MONGODB_URL: str = os.getenv("MONGODB_URL", "mongodb://localhost:27017")
@@ -20,4 +24,3 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 settings = Settings()
-

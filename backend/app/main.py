@@ -26,7 +26,11 @@ app = FastAPI(
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        origin.strip()
+        for origin in settings.CORS_ORIGINS.split(",")
+        if origin.strip()
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -52,6 +56,5 @@ async def root():
 async def health_check():
     return {
         "status": "healthy",
-        "database_type": "in-memory-fallback" if db_manager.is_mock else "mongodb-live"
+        "database_type": db_manager.db_type
     }
-

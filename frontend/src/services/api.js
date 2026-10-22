@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Support custom API URL (e.g. when frontend is deployed on Cloudflare Pages and backend on Vercel)
+// Support a direct backend URL when the frontend and API are deployed separately.
 const rawUrl = (import.meta.env.VITE_API_URL || '/api').trim().replace(/\/+$/, '');
 const baseURL = (rawUrl.startsWith('http') && !rawUrl.endsWith('/api'))
   ? `${rawUrl}/api`
@@ -20,9 +20,7 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default api;

@@ -22,6 +22,7 @@
 - [Database Schema](#-database-schema)
 - [API Reference](#-api-reference)
 - [Installation & Quick Start](#-installation--quick-start)
+- [Deploy to Vercel Services](#-deploy-to-vercel-services)
 - [Demo Personas](#-demo-personas)
 - [Project Structure](#-project-structure)
 
@@ -354,6 +355,83 @@ Visit **`http://localhost:5173`** in your browser!
 
 ---
 
+## ☁️ Deploy to Vercel Services
+
+The repository is configured as one Vercel project with two services:
+the Vite frontend and the FastAPI backend. Supabase provides the PostgreSQL
+database for local and deployed backend instances.
+
+### 1. Prepare Supabase
+
+1. Open the Supabase project and go to **SQL Editor**.
+2. Run [`supabase_schema.sql`](supabase_schema.sql) once.
+3. Copy the project URL and the publishable (anon) key from **Project Settings >
+   API**. Never put a `service_role` key in the frontend.
+
+### 2. Deploy the Vercel project
+
+1. Create a new Vercel project from this repository.
+2. Select **Book (root)** as the project root.
+3. Vercel uses [`vercel.json`](vercel.json) to build the `backend` and
+   `frontend` services independently.
+4. The public routes are:
+   - `/api/*` → `backend`
+   - all other paths → `frontend`
+5. In **Settings > Environment Variables**, add these variables for Production:
+
+   ```text
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_KEY=your-supabase-publishable-key
+   SECRET_KEY=<a-long-random-secret>
+   CORS_ORIGINS=https://your-project.vercel.app
+   ```
+
+6. Deploy and test `https://your-project.vercel.app/api/health`. The response
+   should report `database_type` as `supabase-cloud`.
+
+No service bindings are configured because the frontend calls `/api` from the
+browser through the public rewrite. The backend calls Supabase and external
+book metadata APIs, not another Vercel service.
+
+### 3. Optional Cloudflare Pages deployment
+
+If you prefer Cloudflare Pages for the frontend, deploy it separately:
+
+1. In Cloudflare, open **Workers & Pages > Create application > Pages >
+   Connect to Git** and select this repository.
+2. Set the build configuration to:
+   - **Root directory:** `frontend`
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+3. Add these Production environment variables before deploying:
+
+   ```text
+   VITE_API_URL=https://your-project.vercel.app/api
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-supabase-publishable-key
+   ```
+
+   `VITE_API_URL` should point to the Vercel API origin.
+   The [`frontend/public/_redirects`](frontend/public/_redirects) file keeps
+   React Router URLs working after refresh.
+4. Copy the final Cloudflare Pages domain into Vercel's `CORS_ORIGINS`
+   variable. For a custom domain, use the exact `https://` origin with no
+   trailing slash, then redeploy the backend.
+
+### 4. Verify the deployment
+
+1. Open the Cloudflare Pages URL.
+2. Register a test account and log in.
+3. Open the browser Network tab and verify requests go to the Vercel `/api`
+   URL and return HTTP 2xx responses.
+4. Confirm the new user and any test resource appear in Supabase tables.
+
+The SQL schema currently contains permissive development RLS policies. Replace
+those policies with authenticated, table-specific policies before using real
+user data in production.
+
+---
+
 ## 👥 Demo Personas
 
 For rapid testing, pre-seeded accounts with verified status and sample listings are available directly via 1-click buttons on the Login page:
@@ -432,4 +510,3 @@ Book/
 ## 📄 License
 
 This project is open-source and distributed under the **MIT License**. See `LICENSE` for details.
-
